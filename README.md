@@ -1,7 +1,7 @@
 # Opetussovellus (lopullinen nimi tulee joskus myöhemmin)
 
 ## Kuvaus
-
+Tarkoituksena on siis luoda pääosin esimerkki-idean kaltainen opetussovellus, joka pystyisi toimimaan kurssialustana. 
 ## Käyttäjätyypit
 Kaikki käyttäjät voivat luomaan tunnuksia sekä kirjautua sisään ja ulos.
 ### Opettaja
