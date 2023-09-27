@@ -1,8 +1,7 @@
 # Opetussovellus (lopullinen nimi tulee joskus myöhemmin)
 
-## Sovelluksen tämänhetkinen tilanne (päiv. 24.9)
-Tällä hetkellä sovellus on melko alkutekijöissä. Toteutettuna on käyttäjätilien luominen sekä sisään- ja uloskirjautuminen. Paitsi että tällä hetkellä ne eivät toimi tietokantaongelmien takia...
-Korjaan 26.9
+## Sovelluksen tämänhetkinen tilanne (päiv. 27.9)
+Tällä hetkellä sovellus on melko alkutekijöissä. Toteutettuna on käyttäjätilien luominen sekä sisään- ja uloskirjautuminen.
 
 ## Kuvaus
 Tarkoituksena on siis luoda pääosin esimerkki-idean kaltainen opetussovellus, joka pystyisi toimimaan kurssialustana. 
