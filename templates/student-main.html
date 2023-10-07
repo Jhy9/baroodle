@@ -1,0 +1,12 @@
+Olet kirjautunut tilille {{username}}
+<p>
+<form action="/logout" method= "post">
+    <input type = "submit" value = "Kirjaudu ulos"> 
+</form>
+<p>
+Omat kurssit:
+<p>
+{% for course in courses %}
+<a href="/courses/{{course.id}}"> {{course.course_name}}</a>
+<p>
+{% endfor %}

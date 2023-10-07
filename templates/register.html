@@ -3,8 +3,12 @@ Käyttäjätunnus: <input type="text" name="username" >
 <p>
 Salasana: <input type="text" name="password"> 
 <p>
-<input type = "radio" name = "account_type" value = "1"> Oppilas
-<input type = "radio" name = "account_type" value = "2"> Opettaja
+<input type = "radio" name = "account_type" value = "Student"> Oppilas
+<input type = "radio" name = "account_type" value = "Teacher"> Opettaja
+<p>
+{% if error == True %}
+Rekisteröinti ei onnistunut. 
+{% endif %}
 <p>
 <input type ="submit" value = "Rekisteröidy"> 
 </form>
