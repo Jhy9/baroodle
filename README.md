@@ -1,31 +1,31 @@
 # Opetussovellus (lopullinen nimi tulee joskus myöhemmin)
 
-## Sovelluksen tämänhetkinen tilanne (päiv. 27.9)
-Tällä hetkellä sovellus on melko alkutekijöissä. Toteutettuna on käyttäjätilien luominen sekä sisään- ja uloskirjautuminen.
+[Kuvaus (alkuperäinen versio)](dokumentaatio/kuvaus.md)
 
-## Kuvaus
-Tarkoituksena on siis luoda pääosin esimerkki-idean kaltainen opetussovellus, joka pystyisi toimimaan kurssialustana. 
-## Käyttäjätyypit
-Kaikki käyttäjät voivat luomaan tunnuksia sekä kirjautua sisään ja ulos.
-### Opettaja
-  - Pystyy luomaan kursseja.
-  - Pystyy muokkaamaan ja poistamaan luomiaan kursseja.
-  - Pystyy lisäämään tehtäviä luomilleen kursseille.
-  - Pystyy näkemään ja arvostelemaan opiskelijoiden tehtäviin antamat vastaukset
-  - Voi saada tilastotietoa tehtävien suorituksista
-  - Pystyy jakamaan ohjaajan oikeuksia kursseilleen (kts. Ohjaajien oikeudet)
-    
-### Opiskelija
-  - Pystyy liittymään kursseille
-  - Pystyy tekemään kurssien tehtäviä
-  - Pystyy saamaan palautetta tekemistään tehtävistä
-  - Jos opiskelijalla on ohjaajan oikeudet kurssille, pystyy hän näkemään ja arvostelemaan muiden opiskelijoiden tehtäviin antamia vastauksia
-  - Pystyy näkemään tilastotietoa omista suorituksistaan
+[Käyttöohje](dokumentaatio/käyttöohje.md)
 
-  ## Ohjaajien oikeudet
-  Tarkoitus olisi luoda opettajalle mahdollisuus antaa opiskelijoille oikeuksia nähdä ja arvostella muiden vastauksia. Nämä oikeudet voivat olla täysimääräisiä tai osittaisia. 
+## Sovelluksen tämänhetkinen tilanne (päiv. 8.10)
+
+### Toteutetut ominaisuudet
+- Käyttäjä voi luoda tilejä oppilas- ja opettajatilejä sekä kirjautumaan niille
+- Opettajatilit voivat luoda kursseja
+- Oppilastilit voivat selata kursseja sekä liittyä niille
+
+
+### Mitä puuttuu
+#### Toiminnallisuudet - Opettaja
+- Opettajat voivat lisätä hallinnoimiinsa kursseihin osioita ja muokata niitä
+- Opettajat voivat lisätä kurssialueille tehtäviä ja arvioida niitä
+- Opettajat voivat jakaa muille käyttäjätileille omien kurssien muokkausoikeuksia
+- Opettajat voivat nähdä tilastotietoa tehtävien suorituksista
+#### Toiminnallisuudet - Oppilas
+- Oppilaat voivat tehdä tehtäviä
+- Oppilaat voivat vertaisarvioida tehtäviä, jotka ovat merkitty vertaisarvioitaviksi
+- Oppilaat voivat nähdä tilastotietoa omista kurssisuorituksista
+#### Muuta
+  - Sivuston ulkoasun parantaminen
+  - [routes.py](routes.py) tiedoston hajoittaminen loogisiin osioihin
+  - Kattavampi virhetilanteisiin varautuminen
+  - Syötteiden hallinta
   
-  Jos ne ovat täysimääräisiä opiskelija-käyttäjä pystyy näkemään kaikkien tehtävien kaikki vastaukset (opiskelijasta tulee ns. kurssiavustaja). 
-  
-  Jos ne taas ovat osittaisia opiskelija-käyttäjä pystyy näkemään vain joidenkin tehtävien joidenkin opiskelijoiden vastaukset eli tarkoitus olisi tehdä ns. vertaisarviointisysteemi.
-  
+
