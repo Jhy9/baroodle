@@ -7,6 +7,8 @@ Olet kirjautunut tilille {{username}}
 Omat kurssit:
 <p>
 {% for course in courses %}
-<a href="/courses/{{course.id}}"> {{course.course_name}}</a>
+<a href="/course/{{course.id}}"> {{course.course_name}}</a>
 <p>
 {% endfor %}
+
+<a href="/show-courses">Liity uudelle kurssille</a>>

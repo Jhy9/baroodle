@@ -1,8 +1,6 @@
 Olet kirjautunut tilille {{username}}
 <p>
-<form action="/logout" method= "post">
-    <input type = "submit" value = "Kirjaudu ulos"> 
-</form>
+    {{message}}
 <p>
 Omat kurssit:
 <p>
@@ -10,3 +8,10 @@ Omat kurssit:
 <a href="/courses/{{course.id}}"> {{course.course_name}}</a>
 <p>
 {% endfor %}
+<form action="/create" method = "get">
+    <input type = "submit" value = "Luo uusi kurssi">
+</form>
+
+<form action="/logout" method= "post">
+    <input type = "submit" value = "Kirjaudu ulos"> 
+</form>

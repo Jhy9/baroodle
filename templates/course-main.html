@@ -1,0 +1,9 @@
+{{course.course_name}}
+<p>
+{{course.description}}
+<p>
+{% if attendance == False %}
+<a href = "/join/{{course.id}}">Liity kurssille</a>
+{% endif %}
+<p>
+Tämä on kurssin aloitussivu. Jonnekin tänne tulee linkit kurssin eri osioihin sekä tehtäviin.
