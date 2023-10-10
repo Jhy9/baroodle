@@ -6,4 +6,6 @@ Tervetuloa.
 <p>
 <a href="/add-tests">Testaa toimintaa</a>
 <p>
-{{message}}
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}

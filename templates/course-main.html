@@ -6,4 +6,10 @@
 <a href = "/join/{{course.id}}">Liity kurssille</a>
 {% endif %}
 <p>
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
+<p>
 Tämä on kurssin aloitussivu. Jonnekin tänne tulee linkit kurssin eri osioihin sekä tehtäviin.
+<p>
+<a href= "/main">Palaa </a>

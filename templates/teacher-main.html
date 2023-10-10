@@ -1,11 +1,13 @@
 Olet kirjautunut tilille {{username}}
 <p>
-    {{message}}
+    {% for message in get_flashed_messages() %}
+        {{message}}
+    {% endfor %}
 <p>
 Omat kurssit:
 <p>
 {% for course in courses %}
-<a href="/courses/{{course.id}}"> {{course.course_name}}</a>
+<a href="/course/{{course.id}}"> {{course.course_name}}</a>
 <p>
 {% endfor %}
 <form action="/create" method = "get">

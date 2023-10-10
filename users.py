@@ -37,3 +37,10 @@ def get_uid():
 
 def get_account_type():
     return session.get("account_type")
+
+def check_name_availability(username):
+    sql = text('SELECT count(*) FROM accounts WHERE username=:username')
+    query = db.session.execute(sql, {"username":username}).scalar()
+    if query > 0:
+        return False
+    return True

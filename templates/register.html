@@ -1,14 +1,19 @@
 <form action="/register" method = "post">
-Käyttäjätunnus: <input type="text" name="username" >
+Käyttäjätunnus (2-12 merkkiä): 
 <p>
-Salasana: <input type="text" name="password"> 
+<input type="text" name="username" >
 <p>
-<input type = "radio" name = "account_type" value = "Student"> Oppilas
+Salasana(4-20 merkkiä):
+<p>
+<input type="text" name="password"> 
+<p>
+<input type = "radio" name = "account_type" value = "Student", checked = "checked"> Oppilas
 <input type = "radio" name = "account_type" value = "Teacher"> Opettaja
+
 <p>
-{% if error == True %}
-Rekisteröinti ei onnistunut. 
-{% endif %}
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
 <p>
 <input type ="submit" value = "Rekisteröidy"> 
 </form>

@@ -1,11 +1,12 @@
 <form action="/login" method = "post">
 Käyttäjätunnus: <input type="text" name="username">
 <p>
-Salasana: <input type="text" name="password">
+Salasana: 
+<input type="text" name="password">
 <p>
-{% if error == True %}
-Väärä tunnus tai salasana.
-{% endif %}
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
 <p>
 <input type ="submit" value = "Kirjaudu sisään"> 
 </form>

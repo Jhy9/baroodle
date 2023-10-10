@@ -10,5 +10,9 @@ Omat kurssit:
 <a href="/course/{{course.id}}"> {{course.course_name}}</a>
 <p>
 {% endfor %}
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
+<p>
 
 <a href="/show-courses">Liity uudelle kurssille</a>>

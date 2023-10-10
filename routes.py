@@ -1,10 +1,12 @@
 from app import app
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for, flash
 import users
 import courses
 import teachers
 import students
+import inputCheck
 import testfile
+
 
 @app.route("/")
 def index():
@@ -17,35 +19,42 @@ def register():
     if users.get_uid() != False:
         return redirect("/main")
     if request.method == "GET":
-        return render_template("register.html", error= False)
+        return render_template("register.html")
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         account_type = request.form["account_type"]
+        check_result = inputCheck.registration(username,password)
+        if check_result != True:
+            flash(check_result)
+            return render_template("register.html")
         if users.register(username,password,account_type):
             users.login(username, password)
             return redirect("/main")
         else:
-            return render_template("register.html", error = True)
+            flash("Käyttäjää ei pystytty lisäämään tietokantaan. Tarkista tietokantayhteys.")
+            return render_template("register.html")
 
 @app.route("/login", methods=["GET","POST"])
 def login():
     if users.get_uid() != False:
         return redirect("/main")
     if request.method == "GET":
-        return render_template("login.html", error = False)
+        return render_template("login.html")
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username,password) is False:
-            return render_template("login.html", error = True)            
+            flash("Väärä käyttäjätunnus tai salasana")
+            return render_template("login.html")            
         else:            
             return redirect("/main")
 
 @app.route("/logout", methods = ["POST"])
 def logout():
     users.logout()
-    return redirect("/")
+    flash("Olet kirjautunut ulos")
+    return redirect(url_for('index'))
 
 @app.route("/main")
 def main_page():
@@ -65,9 +74,15 @@ def create():
     if request.method == "POST":
         course_name = request.form["course_name"]
         description = request.form["description"]
+        check_result = inputCheck.course_creation(course_name, description)
+        if check_result != True:
+            flash(check_result)
+            return render_template("course-creator.html")
         if courses.create(users.get_uid(),course_name, description):
-            return render_template("teacher-main.html", username = users.get_name(), courses = teachers.get_courses(), message = "Kurssin luonti onnistui")
-        return render_template("course-creator.html", message = "Kurssin luonti epäonnistui")
+            flash("Kurssin luonti onnistui")
+            return redirect(url_for('main_page'))
+        flash("Kurssia ei pystytty lisäämään tietokantaan. Tarkista tietokantayhteys.")
+        return render_template("course-creator.html")
     
 @app.route("/show-courses")
 def show_courses():
@@ -79,7 +94,8 @@ def show_courses():
 def add_tests():
     testfile.create_test()
     testfile.add_attendances()
-    return render_template("index.html", message = "Testihenkilöt ja kurssit lisätty")
+    flash("Testihenkilöt ja kurssit lisätty")
+    return redirect(url_for('index'))
 
 @app.route("/course/<id>")
 def show_course_page(id):
