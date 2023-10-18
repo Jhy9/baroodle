@@ -48,3 +48,25 @@ def course_description_checker(description):
     if len(description) > 2000:
         return "Kuvaus on liian pitkä."
     return True
+
+def page_checker(page_title, page_content):
+    if page_title_checker(page_title) != True:
+        return page_title_checker(page_title)
+    if page_content_checker(page_content) != True:
+        return page_content_checker(page_content)
+    return True
+
+def page_title_checker(page_title):
+    if len(page_title) > 30:
+        return "Sivun otsikko on liian pitkä"
+    if len(page_title) < 1:
+        return "Sivulla pitää olla otsikko"
+    if page_title.startswith(" "):
+        return "Sivun otsikko ei saa alkaa välilyönnillä"
+    return True
+
+def page_content_checker(page_content):
+    if len(page_content) > 20000:
+        return "Sivulla on liikaa tekstiä"
+    return True
+

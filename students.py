@@ -14,16 +14,10 @@ def get_joinable_courses():
 
 def attend_course(course_id, student_id):
     try:
-        sql = text('INSERT INTO course_attendance(course_id,account_id,completion_status) VALUES (:course_id,:account_id, :completion_status) ')
-        db.session.execute(sql, {"course_id":course_id,"account_id":student_id,"completion_status":'INCOMPLETE'})
+        sql = text('INSERT INTO course_attendance(course_id,account_id,privilege) VALUES (:course_id,:account_id, :privilege) ')
+        db.session.execute(sql, {"course_id":course_id,"account_id":student_id,"privilege":1})
         db.session.commit()
     except:
         return False
     return True
 
-def check_attendance(course_id):
-    sql = text('SELECT count(*) FROM course_attendance WHERE course_id = :course_id AND account_id= :account_id')
-    query = db.session.execute(sql, {"course_id":course_id, "account_id":session.get("uid")}).scalar()
-    if query > 0:
-        return True
-    return False

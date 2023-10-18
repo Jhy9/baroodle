@@ -1,0 +1,10 @@
+{% for message in get_flashed_messages() %}
+    <p>{{message}}</p>>
+{% endfor %}
+<form action = "/course/{{course}}/{{page}}/modify" method = "post">
+Otsikko: <input type = "text" name = "title", value = {{title}}>
+Sisältö: <input type = "text" name = "content", value = {{content}}>
+<input type ="submit" value = "Tallenna"> 
+</form>>
+
+<p><a href="/course/{{course}}/{{page}}">Palaa takaisin</a></p>

@@ -1,0 +1,19 @@
+<p>{{page.title}}</p>
+
+
+{% for message in get_flashed_messages() %}
+    <p>{{message}}</p>>
+{% endfor %}
+{% if privilege >= 3 %}
+<p>
+    <a href="/course/{{course}}/{{pid}}/modify">Muokkaa sivua</a>
+</p>
+<p>
+    <a href="/course/{{course}}/{{pid}}/delete">Poista sivu</a>
+</p>
+{% endif %}
+
+<p><a href="/course/{{course}}">Palaa kurssisivulle</a></p>
+
+<p>{{page.content}}</p>
+

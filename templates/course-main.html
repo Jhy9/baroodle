@@ -2,8 +2,14 @@
 <p>
 {{course.description}}
 <p>
-{% if attendance == False %}
+{% if privilege == 0 %}
 <a href = "/join/{{course.id}}">Liity kurssille</a>
+{% endif %}
+{% if privilege == 4 %}
+<a href = "/course/{{course.id}}/permissions">Muuta käyttöoikeuksia</a>
+{% endif %}
+{% if privilege >= 3 %}
+<a href = "/course/{{course.id}}/create-page">Luo alasivu</a>
 {% endif %}
 <p>
 {% for message in get_flashed_messages() %}
@@ -12,4 +18,14 @@
 <p>
 Tämä on kurssin aloitussivu. Jonnekin tänne tulee linkit kurssin eri osioihin sekä tehtäviin.
 <p>
-<a href= "/main">Palaa </a>
+Kurssin osat:
+<p>
+{% for page in pages%}
+<p>
+    <a href= "/course/{{course.id}}/{{page.id}}">{{page.title}}</a>
+</p>
+{% endfor %}
+</p>
+<p>
+
+<a href= "/main">Palaa pääsivulle</a>

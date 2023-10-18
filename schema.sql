@@ -15,7 +15,7 @@ CREATE TABLE courses(
 CREATE TABLE course_attendance(
     course_id INTEGER REFERENCES courses,
     account_id INTEGER REFERENCES accounts,
-    completion_status TEXT
+    privilege INTEGER
 );
 
 CREATE TABLE exercises(
@@ -30,3 +30,12 @@ CREATE TABLE exercise_completions(
     exercise_answer TEXT,
     points INTEGER
 );
+
+CREATE TABLE pages(
+    id SERIAL PRIMARY KEY,
+    course_id INTEGER REFERENCES courses,
+    title TEXT,
+    content TEXT,
+    position INTEGER
+);
+
