@@ -70,3 +70,35 @@ def page_content_checker(page_content):
         return "Sivulla on liikaa tekstiä"
     return True
 
+def set_name_check(set_name):
+    if len(set_name) > 30:
+        return "Tehtäväsarjan nimi on liian pitkä"
+    if len(set_name) < 1:
+        return "Tehtäväsarjalla pitää olla nimi"
+    if set_name.startswith(" "):
+        return "Tehtäväsarjan nimi ei saa alkaa välilyönnillä"
+    return True
+
+def exercise_multi_check(assignment,answer,option1,option2,option3,max_points):
+    if max_points < 0:
+        return "Maksimipisteet eivät saa olla negatiivisia"
+    if len(assignment) < 1:
+        return "Tehtävänanto on pakollinen"
+    if assignment.startswith(" "):
+        return "Tehtävänanto ei saa alkaa välilyönnillä"
+    if len(answer) < 1:
+        return "Vastaus on pakollinen"
+    if answer.startswith(" "):
+        return "Vastaus ei saa alkaa välilyönnillä"
+    if option1 == answer or option2 == answer or option3==answer:
+        return True
+    return "Jonkun vaihdoehdoista on oltava oikea vastaus"
+
+def exercise_check(assignment, max_points):
+    if max_points < 0:
+        return "Maksimipisteet eivät saa olla negatiivisia"
+    if len(assignment) < 1:
+        return "Tehtävänanto on pakollinen"
+    if assignment.startswith(" "):
+        return "Tehtävänanto ei saa alkaa välilyönnillä"
+    return True

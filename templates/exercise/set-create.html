@@ -1,0 +1,12 @@
+<h1>Luo uusi tehtäväsarja</h1>
+
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
+
+<form action="/course/{{course_id}}/exercises/create-set" method = "post">
+
+<input type = "text" name = "name" value = {{name}}> 
+
+<input type = "submit" value = "Luo">
+</form>

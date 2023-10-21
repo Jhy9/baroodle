@@ -1,4 +1,3 @@
-from operator import truediv
 from db import db
 from flask import session
 from sqlalchemy import text

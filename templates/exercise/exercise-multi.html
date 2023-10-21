@@ -1,0 +1,16 @@
+<h1>Lisää monivalintatehtävä</h1>>
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
+<form action = "/course/{{course}}/exercises/{{set}}/add-multi" method = post>
+    <p><input type = text name = "assignment" > Tehtävänanto: </p>
+    <p><input type = text name = "option1" > Vaihtoehto 1: </p>
+    <p><input type = text name = "option2" > Vaihtoehto 2: </p>
+    <p><input type = text name = "option3" > Vaihtoehto 3 (vapaaehtoinen): </p>
+    <p><input type = text name = "answer" > Oikea vastaus: </p>
+    <p><input type = number name = "max_points" required> Maksimipisteet:</p>
+    <input type = "submit" value = "Lisää">
+</form>
+
+
+<p><a href="/course/{{course}}/exercises/{{set}}"> Palaa takaisin </a></p>

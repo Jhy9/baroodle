@@ -11,7 +11,8 @@
 {% if privilege >= 3 %}
 <a href = "/course/{{course.id}}/create-page">Luo alasivu</a>
 {% endif %}
-<p>
+<p><a href = "/course/{{course.id}}/exercises">Tehtävät</a> </p>
+
 {% for message in get_flashed_messages() %}
     {{message}}
 {% endfor %}

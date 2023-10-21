@@ -1,0 +1,38 @@
+<h1> Tehtävät</h1>
+
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
+
+{% for ex in exercises %}
+    <p>{{ex.assignment}}</p>
+    <form action = "/course/{{course}}/exercises/{{set}}" method = post>
+    <input type = "hidden" name = "ex_id" value = {{ex.id}}>
+    {% if ex.exercise_type == 1 %}    
+    <p>
+        {% if ex.answer != None %}
+        Vastauksesi: {{ex.answer}}
+        {% else %}
+        <input type = "hidden" name = "type" value = 1>
+        <p><input type = "radio" name = "answer" value = {{ex.option1}} checked = "checked">{{ex.option1}}</p>
+        <p><input type = "radio" name = "answer" value = {{ex.option2}}>{{ex.option2}}</p>
+        {% if ex.option3 %}
+        <p><input type = "radio" name = "answer" value = {{ex.option3}}>{{ex.option3}}</p>
+        {% endif %}
+        <input type = "submit" value = "Vastaa">
+        </p>
+        {% endif %}
+    {% else %}
+    <input type = "hidden" name = "type" value = 2>
+    <p>Vastaus:<input type = "text" name = answer value = {{ex.answer}}></p> 
+    <input type = "submit" value = "Tallenna">
+    {% endif %}
+    </form>
+{% endfor %}
+
+{% if privilege >= 3 %}
+<p><a href="/course/{{course}}/exercises/{{set}}/add-text">Lisää tehtävä (avoin vastaus)</p>
+<p><a href="/course/{{course}}/exercises/{{set}}/add-multi">Lisää monivalintatehtävä</p>
+{% endif %}
+
+<p><a href="/course/{{course}}/exercises"> Palaa takaisin </a></p>
