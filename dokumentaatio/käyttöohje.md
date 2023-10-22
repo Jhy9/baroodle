@@ -17,5 +17,3 @@
    ```bash
    flask run
    ```
-5. (Vapaaehtoinen testaukseen) Voit lisätä tietokantaan muutaman valmiin kurssin ja käyttäjän painamalla sovelluksen pääsivulla linkkiä "Testaa toimintaa".
-   Nämä käyttäjät, salasanat ja kurssit löytyvät tiedostosta [testfile.py](./testfile.py). Tee tämä ennen kuin rekisteröit omia käyttäjiä. (Tämä ominaisuus on vain väliaikainen).
