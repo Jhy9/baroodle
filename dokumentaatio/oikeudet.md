@@ -7,5 +7,5 @@ Käyttäjän käyttöoikeuksia voidaan muuttaa, jos hän on liittynyt kurssialue
 - Taso 4: Kurssin luoja. Täydet oikeudet kaikkiin toimintoihin.
 - Taso 3: Täydet muokkausoikeudet. Oikeus muokata koko kurssialuetta.
 - Taso 2: Arvosteluoikeudet. Normaalit käyttäjäoikeudet + oikeus arvostella tehtävien palautuksia.
-- Taso 1: Osallistuja. Normaalit käyttäjäoikeudet.
+- Taso 1: Osallistuja. Normaalit käyttäjäoikeudet. Nämä oikeudet saa liittymällä kurssialueelle.
 - Taso 0: Vierailija. Ei pääsyä tehtäväalueelle.
