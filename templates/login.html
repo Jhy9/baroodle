@@ -1,13 +1,12 @@
+<h1>Sisäänkirjautuminen</h1>
 <form action="/login" method = "post">
-Käyttäjätunnus: <input type="text" name="username">
-<p>
+<p>Käyttäjätunnus: <input type="text" name="username"></p>
 Salasana: 
-<input type="text" name="password">
-<p>
+<p><input type="text" name="password"></p>
+
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}
-<p>
 <input type ="submit" value = "Kirjaudu sisään"> 
 </form>
-<a href="/"> Palaa</a>
+<p><a href="/"> Palaa</a></p>

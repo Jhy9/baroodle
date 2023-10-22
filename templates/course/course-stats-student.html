@@ -1,0 +1,11 @@
+<h1>Kurssin pisteet</h1>
+
+Kokonaispisteet:
+{{total_points.own}} / {{course_max.max}}
+
+<p>Tehtäväsarjojen pisteet:</p>
+{% for seri in series %}
+    <p>{{seri.set_name}} : {{seri.own}}/ {{seri.max}}</p>
+{% endfor %}
+
+<p><a href="/course/{{course}}">Palaa kurssisivulle</a></p>

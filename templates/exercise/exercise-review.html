@@ -4,15 +4,16 @@
 {% endfor %}
 <p>Arvioitavat palautukset:</p>
 {% for sub in submissions %}
-<p>{{sub.assignment}}</p>
-<form action="/course/{{course}}/exercises/{{set}}/review" method = post>
-<input type = "hidden" name = "user_id" value = {{sub.user_id}}>
-<input type = "hidden" name = "ex_id" value = {{sub.id}}>
-<p>Maksimipisteet: {{sub.max_points}}</p>
-<p><input type = number name = "points" required> Pisteet:</p>
-<p>Palaute:<input type = text name = "comment"></p>
-<input type = "submit" value = "Arvioi">
-</form>
+    <p>{{sub.assignment}}</p>
+    <form action="/course/{{course}}/exercises/{{set}}/review" method = post>
+        <input type="hidden" name="csrf_token" value="{{token}}">
+        <input type = "hidden" name = "user_id" value = {{sub.user_id}}>
+        <input type = "hidden" name = "ex_id" value = {{sub.id}}>
+        <p>Maksimipisteet: {{sub.max_points}}</p>
+        <p><input type = number name = "points" required> Pisteet:</p>
+        <p>Palaute:<input type = text name = "comment"></p>
+        <input type = "submit" value = "Arvioi">
+    </form>
 {% endfor %}
 
 <p><a href="/course/{{course}}/exercises"> Palaa takaisin </a></p>

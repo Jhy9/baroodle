@@ -1,17 +1,15 @@
-Olet kirjautunut tilille {{username}}
-<p>
-    {% for message in get_flashed_messages() %}
-        {{message}}
-    {% endfor %}
-<p>
-Omat kurssit:
-<p>
+<h2>Olet kirjautunut tilille {{username}}</h2>
+
+{% for message in get_flashed_messages() %}
+    <p>{{message}}</p>
+{% endfor %}
+<p>Omat kurssit:</p>
+
 {% for course in courses %}
-<a href="/course/{{course.id}}"> {{course.course_name}}</a>
-<p>
+    <p><a href="/course/{{course.id}}"> {{course.course_name}}</a></p>
 {% endfor %}
 <form action="/create" method = "get">
-    <input type = "submit" value = "Luo uusi kurssi">
+    <p><input type = "submit" value = "Luo uusi kurssi"></p>
 </form>
 
 <form action="/logout" method= "post">

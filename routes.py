@@ -1,5 +1,7 @@
+from os import abort
+import secrets
 from app import app
-from flask import render_template,request,redirect,url_for, flash
+from flask import render_template,request,redirect,url_for, flash, session
 import users
 import courses
 import teachers
@@ -46,7 +48,8 @@ def login():
         if users.login(username,password) is False:
             flash("Väärä käyttäjätunnus tai salasana")
             return render_template("login.html")            
-        else:            
+        else:
+            session["csrf_token"] = secrets.token_hex(16)         
             return redirect("/main")
 
 @app.route("/logout", methods = ["POST"])
@@ -69,19 +72,21 @@ def create():
     if users.get_account_type()!= "Teacher":
         return redirect("/main")
     if request.method == "GET":
-        return render_template("course-creator.html")
+        return render_template("course-creator.html",token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         course_name = request.form["course_name"]
         description = request.form["description"]
         check_result = inputCheck.course_creation(course_name, description)
         if check_result != True:
             flash(check_result)
-            return render_template("course-creator.html")
+            return render_template("course-creator.html",token = session["csrf_token"])
         if courses.create(users.get_uid(),course_name, description):
             flash("Kurssin luonti onnistui")
             return redirect(url_for('main_page'))
         flash("Kurssia ei pystytty lisäämään tietokantaan. Tarkista tietokantayhteys.")
-        return render_template("course-creator.html")
+        return render_template("course-creator.html",token = session["csrf_token"])
     
 @app.route("/show-courses")
 def show_courses():

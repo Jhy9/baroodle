@@ -1,4 +1,5 @@
-from flask import render_template,request,redirect,url_for, flash, Blueprint
+from os import abort
+from flask import render_template,request,redirect,url_for, flash, Blueprint, session
 import users
 import courses
 import inputCheck
@@ -14,8 +15,10 @@ def exercise_main(cid):
         if courses.permission_check(cid) < 1:
             flash("Sinulla ei ole oikeuksia nähdä sivua")
             return redirect(url_for('course_routes.show_course_page', id = cid))
-        return render_template("exercise-main.html",privilege = courses.permission_check(cid), exercise_sets= exercises.get_sets(cid), course_id = cid)
+        return render_template("exercise-main.html",privilege = courses.permission_check(cid), exercise_sets= exercises.get_sets(cid), course_id = cid,token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         status = request.form["visibility"]
         id = request.form["set"]
         if exercises.modify_set_availability(id,status) == True:
@@ -30,8 +33,10 @@ def exercise_set_create(cid,name = ""):
         if courses.permission_check(cid) < 3:
             flash("Sinulla ei ole oikeuksia nähdä sivua")
             return redirect(url_for('course_routes.show_course_page', id = cid))
-        return render_template("set-create.html",course_id = cid,name=name)
+        return render_template("set-create.html",course_id = cid,name=name,token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         set_name = request.form["name"]
         input_check = inputCheck.set_name_check(set_name)
         if input_check != True:
@@ -49,15 +54,16 @@ def exercise_set(cid,sid):
         if courses.permission_check(cid) < 1:
             flash("Sinulla ei ole oikeuksia nähdä sivua")
             return redirect(url_for('course_routes.show_course_page', id = cid))
-        return render_template("set-main.html", exercises = exercises.get_set(sid,users.get_uid()), course = cid, set =sid, privilege = courses.permission_check(cid))
+        return render_template("set-main.html", exercises = exercises.get_set(sid,users.get_uid()), course = cid, set =sid, privilege = courses.permission_check(cid),token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         ex_id = request.form["ex_id"]
         answer = request.form["answer"]
         ex_type = int(request.form["type"])
         if ex_type == 1:
-            flash("wow")
             if exerciseSubmissions.check_answer(ex_id,answer) == True:
-                points = exercises.get_max_points(ex_id)     
+                points = exercises.get_max_points(ex_id)
             else:
                 points = 0
             if exerciseSubmissions.add_submission(ex_id,answer,users.get_uid(),points) == True:
@@ -75,9 +81,14 @@ def exercise_set(cid,sid):
                     flash("Palautus onnistui")
                 else:
                     flash("Palautus epäonnistui")
-        return render_template("set-main.html", exercises = exercises.get_set(sid,users.get_uid()), course = cid, set =sid, privilege = courses.permission_check(cid))
+        return render_template("set-main.html", exercises = exercises.get_set(sid,users.get_uid()), course = cid, set =sid, privilege = courses.permission_check(cid),token = session["csrf_token"])
         
-
+@exercise.route("/course/<cid>/exercises/<sid>/show")
+def show_set_answers(cid,sid):
+    if courses.permission_check(cid) < 1:
+        flash("Sinulla ei ole oikeuksia nähdä sivua")
+        return redirect(url_for('course_routes.show_course_page', id = cid))
+    return render_template("set-view.html", exercises=exerciseSubmissions.get_user_submissions(sid,users.get_uid()), course = cid)
 
 @exercise.route("/course/<cid>/exercises/<sid>/add-text", methods=["GET","POST"])
 def add_exercise(cid,sid):
@@ -85,18 +96,20 @@ def add_exercise(cid,sid):
         if courses.permission_check(cid) < 3:
             flash("Sinulla ei ole oikeuksia nähdä sivua")
             return redirect(url_for('course_routes.show_course_page', id = cid))
-        return render_template("exercise-text.html",course = cid, set=sid)
+        return render_template("exercise-text.html",course = cid, set=sid,token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         assignment = request.form["assignment"]
         max_points = int(request.form["max_points"])
         if inputCheck.exercise_check(assignment,max_points) != True:
             flash(inputCheck.exercise_check(assignment,max_points))
-            return render_template("exercise-text.html",course = cid, set=sid)
+            return render_template("exercise-text.html",course = cid, set=sid,token = session["csrf_token"])
         if exercises.add_exercise(sid, assignment,max_points) == True:
             flash("Tehtävä lisätty")
             return redirect(url_for('exercise_routes.exercise_set',cid = cid,sid = sid))
         flash("Tehtävän lisääminen epäonnistui")
-        return render_template("exercise-text.html",course = cid, set=sid)
+        return render_template("exercise-text.html",course = cid, set=sid,token = session["csrf_token"])
         
 
         
@@ -106,8 +119,10 @@ def add_exercise_multi(cid,sid):
         if courses.permission_check(cid) < 3:
             flash("Sinulla ei ole oikeuksia nähdä sivua")
             return redirect(url_for('course_routes.show_course_page', id = cid))
-        return render_template("exercise-multi.html",course = cid, set=sid)
+        return render_template("exercise-multi.html",course = cid, set=sid,token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         assignment = request.form["assignment"]
         answer = request.form["answer"]
         option1 = request.form["option1"]
@@ -116,12 +131,12 @@ def add_exercise_multi(cid,sid):
         max_points = int(request.form["max_points"])
         if inputCheck.exercise_multi_check(assignment,answer,option1,option2,option3, max_points) != True:
             flash(inputCheck.exercise_multi_check(assignment,answer,option1,option2,option3, max_points))
-            return render_template("exercise-multi.html",course = cid, set=sid)
+            return render_template("exercise-multi.html",course = cid, set=sid,token = session["csrf_token"])
         if exercises.add_exercise_multi(sid,assignment,max_points, option1,option2,option3,answer)== True:
             flash("Tehtävä lisätty")
             return redirect(url_for('exercise_routes.exercise_set',cid = cid,sid = sid))
         flash("Tehtävän lisääminen epäonnistui")
-        return render_template("exercise-multi.html",course = cid, set=sid)
+        return render_template("exercise-multi.html",course = cid, set=sid,token = session["csrf_token"])
     
 @exercise.route("/course/<cid>/exercises/<sid>/review",methods= ["GET","POST"])
 def add_reviews(cid,sid):
@@ -129,21 +144,23 @@ def add_reviews(cid,sid):
         if courses.permission_check(cid) < 2:
             flash("Sinulla ei ole oikeuksia nähdä sivua")
             return redirect(url_for('course_routes.show_course_page', id = cid))
-        return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid))
+        return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid),token = session["csrf_token"])
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort()
         user = request.form["user_id"]
         exercise = request.form["ex_id"]
         points = int(request.form["points"])
         comment = request.form["comment"]
         if points < 0:
             flash("Pisteet eivät saa olla negatiivisia")
-            return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid))
+            return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid),token = session["csrf_token"])
         elif points > exercises.get_max_points(exercise):
             flash("Pisteet eivät saa ylittää maksimimäärää")
-            return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid))
+            return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid),token = session["csrf_token"])
         elif exerciseReviews.add_review(exercise,user,points,comment) == True:
             flash("Arviointi lisätty")
         else:
             flash("Arviointia ei voitu lisätä")
-        return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid))
+        return render_template("exercise-review.html",course=cid,set=sid,submissions = exerciseReviews.get_submissions(sid),token = session["csrf_token"])
     

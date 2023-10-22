@@ -1,20 +1,19 @@
+<h1>Rekisteröityminen</h1>
 <form action="/register" method = "post">
-Käyttäjätunnus (2-12 merkkiä): 
-<p>
-<input type="text" name="username" >
-<p>
-Salasana(4-20 merkkiä):
-<p>
-<input type="text" name="password"> 
+<p>Käyttäjätunnus (2-12 merkkiä): </p>
+
+<p><input type="text" name="username" ></p>
+
+<p>Salasana(4-20 merkkiä):</p>
+
+<p><input type="text" name="password"> </p>
 <p>
 <input type = "radio" name = "account_type" value = "Student", checked = "checked"> Oppilas
 <input type = "radio" name = "account_type" value = "Teacher"> Opettaja
-
-<p>
+</p>
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}
-<p>
-<input type ="submit" value = "Rekisteröidy"> 
+<p><input type ="submit" value = "Rekisteröidy"> </p>
 </form>
-<a href="/"> Palaa</a>
+<p><a href="/"> Palaa</a></p>s

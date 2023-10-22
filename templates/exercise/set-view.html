@@ -1,0 +1,16 @@
+<h1> Omat palautuksesi</h1>
+
+{% for ex in exercises %}
+    <h2>Tehtävä:</h2>
+    <p>{{ex.assignment}}</p>
+    <p>Vastauksesi:</p>
+    <p>{{ex.answer}}</p> 
+    Pisteet:
+    <p>{{ex.points}}/{{ex.max_points}}</p>   
+    {% if ex.feedback %}
+        <p>Palaute:</p>
+        <p>{{ex.feedback}}</p>
+    {% endif %}
+{% endfor %}
+
+<p><a href="/course/{{course}}/exercises"> Palaa takaisin </a></p>

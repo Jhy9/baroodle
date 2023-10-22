@@ -3,6 +3,7 @@
     {{message}}
 {% endfor %}
 <form action = "/course/{{course}}/exercises/{{set}}/add-text" method = post>
+    <input type="hidden" name="csrf_token" value="{{token}}">
     <p><input type = text name = "assignment" > Tehtävänanto:</p>
     <p><input type = number name = "max_points" required> Maksimipisteet:</p>
     <input type = "submit" value = "Lisää">

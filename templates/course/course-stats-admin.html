@@ -1,0 +1,10 @@
+<h1>Tilastotietoa</h1>
+
+<p>Osallistujia: {{attendees.ac}}</p>
+<p>Vähintään yhden tehtävän palauttaneita: {{actives.exa}}</p>
+
+<p>Osallistujien pisteet:</p>
+{% for student in students %}
+    <p>{{student.id}}: {{student.points}}</p>
+{% endfor %}
+<p><a href="/course/{{course}}">Palaa kurssisivulle</a></p>

@@ -11,6 +11,15 @@ def create(teacher_id, course_name, description):
         return False
     return True
 
+def change_description(course_id,description):
+    try:
+        sql = text('UPDATE courses SET course_description =:descr WHERE id =:id')
+        db.session.execute(sql,{"descr":description,"id":course_id})
+        db.session.commit()
+    except:
+        return False
+    return True
+
 def permission_check(course_id):
     sql = text('SELECT creator FROM courses WHERE id = :id')
     query = db.session.execute(sql, {"id":course_id}).scalar()
@@ -23,9 +32,13 @@ def permission_check(course_id):
     return query
 
 def load_main(id):
-    sql = text('SELECT * FROM courses WHERE id = :id')
+    sql = text('SELECT id,course_name,creator,course_description FROM courses WHERE id = :id')
     query = db.session.execute(sql,{"id":id})
     return query.fetchone()
+
+def get_description(course_id):
+    sql = text('SELECT course_description FROM courses WHERE id =:id')
+    return db.session.execute(sql,{"id":course_id}).fetchone()
 
 def check_name_availability(course_name):
     sql = text('SELECT count(*) FROM courses WHERE course_name=:course_name')

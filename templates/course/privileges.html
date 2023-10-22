@@ -1,35 +1,34 @@
 <p>Voit muuttaa tällä sivulla kurssin osallistujien käyttöoikeuksia</p>
 
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}
 
-<p>Taso 1 = Perusoikeudet , Taso 2 = Oikeus nähdä kaikki tehtävien vastaukset, Taso 3 = Oikeus muokata kurssialuetta</p>
+<p>Taso 1 = Perusoikeudet , Taso 2 = Oikeus arvostella tehtävien palautuksia, Taso 3 = Oikeus muokata kurssialuetta</p>
 
 
 {% for user in attendees %}
-<p>
-{{user.username}} : 
-<form action="/course/{{course_id}}/permissions" method = post>
-<input type = "hidden" name = "user" value = {{user.id}}>
-{% if user.privilege == 1 %}
-<input type = "radio" name = "privilege" value = 1 checked = "checked">1
-{% else %}
-<input type = "radio" name = "privilege" value = 1>1
-{% endif %}
-{% if user.privilege == 2 %}
-<input type = "radio" name = "privilege" value = 2 checked = "checked">2
-{% else %}
-<input type = "radio" name = "privilege" value = 2>2
-{% endif %}
-{% if user.privilege == 3 %}
-<input type = "radio" name = "privilege" value = 3 checked = "checked">3
-{% else %}
-<input type = "radio" name = "privilege" value = 3>3
-{% endif %}
-<input type ="submit" value = "Muuta"> 
-</p>
-</form>
+    <p>{{user.username}} :
+    <form action="/course/{{course_id}}/permissions" method = post>
+        <input type = "hidden" name = "user" value = {{user.id}}>
+        {% if user.privilege == 1 %}
+            <input type = "radio" name = "privilege" value = 1 checked = "checked">1
+        {% else %}
+            <input type = "radio" name = "privilege" value = 1>1
+        {% endif %}
+        {% if user.privilege == 2 %}
+            <input type = "radio" name = "privilege" value = 2 checked = "checked">2
+        {% else %}
+            <input type = "radio" name = "privilege" value = 2>2
+        {% endif %}
+        {% if user.privilege == 3 %}
+            <input type = "radio" name = "privilege" value = 3 checked = "checked">3
+        {% else %}
+            <input type = "radio" name = "privilege" value = 3>3
+        {% endif %}
+        <input type ="submit" value = "Muuta"> 
+    </p>
+    </form>
 {% endfor %}
 
 <p><a href="/course/{{course_id}}">Palaa kurssisivulle</a></p>

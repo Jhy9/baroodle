@@ -1,11 +1,11 @@
-Tervetuloa.
-<p>
-<a href="/login"> Kirjaudu sisään </a>
-<p>
-<a href="/register">Rekisteröidy</a>
-<p>
-<a href="/add-tests">Testaa toimintaa</a>
-<p>
+<h1>Tervetuloa Baroodleen</h1>
+
+<p><a href="/login"> Kirjaudu sisään </a></p>
+
+<p><a href="/register">Rekisteröidy</a></p>
+
+<p><a href="/add-tests">Testaa toimintaa</a></p>
+
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}

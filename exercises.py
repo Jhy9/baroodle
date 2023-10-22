@@ -43,9 +43,14 @@ def add_exercise_multi(set_id,description, max_points,option1,option2,option3,an
     return True
 
 def get_set(set_id, user_id):
-    sql = text('SELECT ex.id,ex.assignment, ex.exercise_type,ex.option1,ex.option2,ex.option3, submission.answer FROM exercise_set JOIN exercises as ex ON exercise_set.id = ex.set_id '
-               'LEFT JOIN exercise_submissions as submission ON submission.exercise_id = ex.id '
-               'WHERE exercise_set.id =:set_id AND (submission.user_id =:user_id OR submission.user_id IS NULL)')
+    sql = text('SELECT ex.id,ex.assignment, ex.exercise_type,ex.option1,ex.option2,ex.option3, submission.answer '
+               'FROM exercise_set JOIN exercises as ex ON exercise_set.id = ex.set_id '
+               'LEFT JOIN LATERAL '
+               '(SELECT sub.answer as answer, ex.id as ex_id '
+               'FROM exercise_submissions as sub '
+                'WHERE sub.user_id =:user_id AND sub.exercise_id = ex.id) '
+                'submission on submission.ex_id = ex.id '
+               'WHERE exercise_set.id =:set_id')
     return db.session.execute(sql,{"set_id":set_id, "user_id":user_id}).fetchall()
 
 def get_max_points(exercise_id):

@@ -1,18 +1,16 @@
-Olet kirjautunut tilille {{username}}
+<h2>Olet kirjautunut tilille {{username}}</h2>
 <p>
 <form action="/logout" method= "post">
     <input type = "submit" value = "Kirjaudu ulos"> 
 </form>
-<p>
-Omat kurssit:
-<p>
+</p>
+<p>Omat kurssit:</p>
 {% for course in courses %}
-<a href="/course/{{course.id}}"> {{course.course_name}}</a>
-<p>
+    <p><a href="/course/{{course.id}}"> {{course.course_name}}</a></p>
 {% endfor %}
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}
-<p>
+
 
 <a href="/show-courses">Liity uudelle kurssille</a>>

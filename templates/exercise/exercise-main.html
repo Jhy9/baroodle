@@ -1,46 +1,52 @@
 
-<h1>Tehtävät</h1>
+<h1>Kurssin tehtävät</h1>
 
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}
 {% if not exercise_sets %}
     Kurssilla ei ole yhtään tehtävää
 {% else %}
     {% for set in exercise_sets %}
-    {% if privilege >= 3 or set.availability_status != "hidden" %}
-    <p>Tehtäväsarja: {{set.set_name}}</p>
-    {% endif %}
-    {% if privilege >= 3 %}
-    <p>Näkyvyys:</p>
-    <form action= "/course/{{course_id}}/exercises" method = "post">
-        <input type = "hidden" name = "set" value = {{set.id}}>
-        {% if set.availability_status == "hidden" %}
-            <input type = "radio" name = "visibility" value = "hidden" checked = "checked"> Piilotettu
-        {% else %}
-            <input type = "radio" name = "visibility" value = "hidden"> Piilotettu
+        {% if privilege >= 3 or set.availability_status != "hidden" %}
+            <p>Tehtäväsarja: {{set.set_name}}</p>
         {% endif %}
-        {% if set.availability_status == "available" %}
-            <input type = "radio" name = "visibility" value = "available" checked = "checked"> Avoinna
-        {% else %}
-            <input type = "radio" name = "visibility" value = "available"> Avoinna
+        {% if privilege >= 3 %}
+            <p>Näkyvyys:</p>
+            <form action= "/course/{{course_id}}/exercises" method = "post">
+                <input type="hidden" name="csrf_token" value="{{token}}">
+                <input type = "hidden" name = "set" value = {{set.id}}>
+                {% if set.availability_status == "hidden" %}
+                    <input type = "radio" name = "visibility" value = "hidden" checked = "checked"> Piilotettu
+                {% else %}
+                    <input type = "radio" name = "visibility" value = "hidden"> Piilotettu
+                {% endif %}
+                {% if set.availability_status == "available" %}
+                    <input type = "radio" name = "visibility" value = "available" checked = "checked"> Avoinna
+                {% else %}
+                    <input type = "radio" name = "visibility" value = "available"> Avoinna
+                {% endif %}
+                {% if set.availability_status == "close" %}
+                    <input type = "radio" name = "visibility" value = "closed" checked = "checked"> Suljettu
+                {% else %}
+                    <input type = "radio" name = "visibility" value = "closed"> Suljettu
+                {% endif %}
+                <input type = "submit" value = "Muuta">
+            </form>
         {% endif %}
-        {% if set.availability_status == "close" %}
-            <input type = "radio" name = "visibility" value = "closed" checked = "checked"> Suljettu
-        {% else %}
-            <input type = "radio" name = "visibility" value = "closed"> Suljettu
+        {% if set.availability_status == "closed" and privilege >= 2 %}
+            <p><a href = "/course/{{course_id}}/exercises/{{set.id}}/review">Siirry arvioimaan</a></p>
         {% endif %}
-        <input type = "submit" value = "Muuta">
-    </form>
-    {% endif %}
-{% if set.availability_status == "closed" and privilege >= 2 %}
-    <p><a href = "/course/{{course_id}}/exercises/{{set.id}}/review">Siirry arvioimaan</a></p>
-{% endif %}
-{% if set.availability_status == "available" or privilege >= 3 %}
-    <p><a href = "/course/{{course_id}}/exercises/{{set.id}}">Näytä</a></p>
-{% endif %}
-        {% endfor %}
+        {% if set.availability_status == "available" or privilege >= 3 %}
+            <p><a href = "/course/{{course_id}}/exercises/{{set.id}}">Tehtäviin</a></p>
+        {% endif %}
+        {% if set.availability_status != "hidden" or privilege >= 3 %}
+            <p><a href = "/course/{{course_id}}/exercises/{{set.id}}/show">Näytä vastauksesi</a></p>
+        {% endif %}
+    {% endfor %}
 {% endif %}
 {% if privilege >= 3 %}
-<p> <a href="/course/{{course_id}}/exercises/create-set"> Luo uusi tehtäväsarja</a></p>
+    <p><a href="/course/{{course_id}}/exercises/create-set"> Luo uusi tehtäväsarja</a></p>
 {% endif %}
+
+<p><a href="/course/{{course_id}}"> Palaa kurssisivulle</a></p>

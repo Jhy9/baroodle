@@ -1,32 +1,37 @@
-{{course.course_name}}
-<p>
-{{course.description}}
-<p>
+<h1>{{course.course_name}}</h1>
+
 {% if privilege == 0 %}
-<a href = "/join/{{course.id}}">Liity kurssille</a>
+    <form action= "/join/{{course.id}}" method= "POST">
+        <input type="hidden" name="csrf_token" value="{{token}}">
+        <input type = "submit" value = "Liity kurssille">
+    </form>
 {% endif %}
 {% if privilege == 4 %}
-<a href = "/course/{{course.id}}/permissions">Muuta käyttöoikeuksia</a>
+    <a href = "/course/{{course.id}}/permissions">Muuta käyttöoikeuksia</a>
 {% endif %}
 {% if privilege >= 3 %}
-<a href = "/course/{{course.id}}/create-page">Luo alasivu</a>
+    <a href = "/course/{{course.id}}/create-page">Luo alasivu</a>
 {% endif %}
-<p><a href = "/course/{{course.id}}/exercises">Tehtävät</a> </p>
+{% if privilege >= 1 %}
+    <p><a href = "/course/{{course.id}}/exercises">Tehtävät</a> </p>
+{% endif %}
+{% if privilege >= 1 %}
+    <p><a href = "/course/{{course.id}}/statistics">Kurssin yhteenveto</a></p>
+{% endif %}
+{% if privilege >= 3 %}
+    <p><a href = "/course/{{course.id}}/modify">Muokkaa kuvausta </a></p>
+{% endif %}
 
 {% for message in get_flashed_messages() %}
-    {{message}}
+    <p>{{message}}</p>
 {% endfor %}
-<p>
-Tämä on kurssin aloitussivu. Jonnekin tänne tulee linkit kurssin eri osioihin sekä tehtäviin.
-<p>
-Kurssin osat:
-<p>
+
+<p>{{course.course_description}}</p>
+
+<p>Kurssin osat:</p>
+
 {% for page in pages%}
-<p>
-    <a href= "/course/{{course.id}}/{{page.id}}">{{page.title}}</a>
-</p>
+    <p><a href= "/course/{{course.id}}/{{page.id}}">{{page.title}}</a></p>
 {% endfor %}
-</p>
-<p>
 
 <a href= "/main">Palaa pääsivulle</a>

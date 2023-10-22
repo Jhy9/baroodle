@@ -1,0 +1,17 @@
+<h2>Kurssin kuvauksen muokkaus</h2>
+
+{% for message in get_flashed_messages() %}
+    {{message}}
+{% endfor %}
+
+<form action = "/course/{{course}}/modify" method = post>
+    <p>Kurssin kuvaus:</p>
+    <p><input type = "text" name = "description" value = {{desc}}></p>
+    <input type="hidden" name="csrf_token" value="{{token}}">
+    <input type = "submit" value = "Muuta">
+</form>
+
+
+<p>
+    <a href= "/course/{{course}}">Takaisin kurssisivulle</a>
+</p>

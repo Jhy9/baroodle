@@ -3,6 +3,7 @@
     {{message}}
 {% endfor %}
 <form action = "/course/{{course}}/exercises/{{set}}/add-multi" method = post>
+    <input type="hidden" name="csrf_token" value="{{token}}">
     <p><input type = text name = "assignment" > Tehtävänanto: </p>
     <p><input type = text name = "option1" > Vaihtoehto 1: </p>
     <p><input type = text name = "option2" > Vaihtoehto 2: </p>
