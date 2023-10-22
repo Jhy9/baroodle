@@ -7,7 +7,7 @@
 
     <p>Kurssin kuvaus (Enintään 2000 merkkiä): </p>
 
-    <input type = "text" name= "description"> 
+    <textarea name= "description" rows = "10" cols = "150"> </textarea>
 
     {% for message in get_flashed_messages() %}
         <p>{{message}}</p>

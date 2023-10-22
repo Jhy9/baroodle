@@ -1,12 +1,12 @@
 <h2>Luo sivu</h2>
 {% for message in get_flashed_messages() %}
-    <p>{{message}}</p>>
+    <p>{{message}}</p>
 {% endfor %}
 <form action = "/course/{{course}}/create-page" method = "post">
     <input type="hidden" name="csrf_token" value="{{token}}">
     Otsikko: <input type = "text" name = "title", value = {{title}}>
-    Sisältö: <p><input type = "text" name = "content", value = {{content}}></p>
+    Sisältö: <p><textarea name = "content" rows = "30" cols = "150">{{content}}</textarea></p>
     <input type ="submit" value = "Luo"> 
-</form>>
+</form>
 
 <p><a href="/course/{{course}}">Palaa kurssisivulle</a></p>

@@ -11,6 +11,7 @@
     <p>{{user.username}} :
     <form action="/course/{{course_id}}/permissions" method = post>
         <input type = "hidden" name = "user" value = {{user.id}}>
+        <input type="hidden" name="csrf_token" value="{{token}}">
         {% if user.privilege == 1 %}
             <input type = "radio" name = "privilege" value = 1 checked = "checked">1
         {% else %}

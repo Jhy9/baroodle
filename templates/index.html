@@ -1,10 +1,8 @@
 <h1>Tervetuloa Baroodleen</h1>
-
+<img src="{{url_for('static',filename='baroo.jpg')}}" alt = "Baroo"/>
 <p><a href="/login"> Kirjaudu sisään </a></p>
 
 <p><a href="/register">Rekisteröidy</a></p>
-
-<p><a href="/add-tests">Testaa toimintaa</a></p>
 
 {% for message in get_flashed_messages() %}
     <p>{{message}}</p>

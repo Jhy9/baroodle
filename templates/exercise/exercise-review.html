@@ -5,6 +5,7 @@
 <p>Arvioitavat palautukset:</p>
 {% for sub in submissions %}
     <p>{{sub.assignment}}</p>
+    <p>Vastaus: {{sub.answer}}</p>
     <form action="/course/{{course}}/exercises/{{set}}/review" method = post>
         <input type="hidden" name="csrf_token" value="{{token}}">
         <input type = "hidden" name = "user_id" value = {{sub.user_id}}>

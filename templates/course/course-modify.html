@@ -6,7 +6,7 @@
 
 <form action = "/course/{{course}}/modify" method = post>
     <p>Kurssin kuvaus:</p>
-    <p><input type = "text" name = "description" value = {{desc}}></p>
+    <p><textarea name = "description" cols = "150" rows = "20">{{desc.course_description}}</textarea></p>
     <input type="hidden" name="csrf_token" value="{{token}}">
     <input type = "submit" value = "Muuta">
 </form>

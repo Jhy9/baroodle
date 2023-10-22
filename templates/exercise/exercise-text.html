@@ -1,11 +1,12 @@
-<h1>Lisää tehtävä</h1>>
+<h1>Lisää tehtävä</h1>
 {% for message in get_flashed_messages() %}
     {{message}}
 {% endfor %}
 <form action = "/course/{{course}}/exercises/{{set}}/add-text" method = post>
     <input type="hidden" name="csrf_token" value="{{token}}">
-    <p><input type = text name = "assignment" > Tehtävänanto:</p>
-    <p><input type = number name = "max_points" required> Maksimipisteet:</p>
+    <p>Tehtävänanto:</p>
+    <p><textarea name = "assignment" rows = "5" cols = "100"> </textarea></p>
+    <p>Maksimipisteet:<input type = number name = "max_points" required> </p>
     <input type = "submit" value = "Lisää">
 </form>
 

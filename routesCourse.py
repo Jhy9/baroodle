@@ -71,7 +71,7 @@ def create_page(cid):
         page_check = inputCheck.page_checker(title,content)
         if page_check != True:
             flash(page_check)
-            render_template("page-creator.html", course = cid ,title = title, content = content,token = session["csrf_token"])
+            return render_template("page-creator.html", course = cid ,title = title, content = content,token = session["csrf_token"])
         if coursePages.add_page(cid,title,content) == True:
             flash("Sivun lisäys onnistui")
             return redirect(url_for('course_routes.show_course_page', id = cid))

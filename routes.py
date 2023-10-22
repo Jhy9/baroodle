@@ -7,7 +7,6 @@ import courses
 import teachers
 import students
 import inputCheck
-import testfile
 
 @app.route("/")
 def index():
@@ -93,11 +92,3 @@ def show_courses():
     if users.get_account_type()!= "Student":
         return redirect("main")
     return render_template("joinable-courses.html", courses = students.get_joinable_courses())
-
-@app.route("/add-tests")
-def add_tests():
-    testfile.create_test()
-    testfile.add_attendances()
-    flash("Testihenkilöt ja kurssit lisätty")
-    return redirect(url_for('index'))
-
